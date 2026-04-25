@@ -1,0 +1,9 @@
+function ToastMessage({ message, type }) {
+  if (!message) {
+    return null;
+  }
+
+  return <div className={`toast toast-${type}`}>{message}</div>;
+}
+
+export default ToastMessage;

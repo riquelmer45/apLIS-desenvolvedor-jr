@@ -1,97 +1,67 @@
-# Comunicação
+# apLIS - Teste Pratico (Fullstack)
 
-Toda a comunicação a respeito deste teste deve ser feita através do email thiago.barros@prestadores.aplis.inf.br. 
+## Visao geral
 
-# Entrega
+Aplicacao fullstack com:
 
-O prazo para entrega do teste é de 10 dias após seu envio ao candidato.
-O teste pode ser entregue parcialmente, porém a porcentagem de aderencia ao escopo total será avaliada.
+- Frontend React (SPA)
+- Backend PHP para medicos
+- Backend Node.js para pacientes
+- Banco MySQL compartilhado
 
-# Recomendações
+O objetivo e permitir o cadastro e a listagem de medicos e pacientes em telas separadas, com integracao ponta a ponta entre frontend, APIs e banco de dados.
 
-Recomendamos uso de arquitetura MVC em ambos os backends.
+## O que foi realizado
 
-## Teste Prático — Desenvolvedor Junior
+- CRUD completo para medicos (PHP) e pacientes (Node.js)
+- Padrao MVC nos dois backends
+- Integracao do frontend com as duas APIs
+- Sidebar com navegacao entre Medicos e Pacientes
+- Formularios com modal de criacao/edicao
+- Confirmacao de exclusao
+- Toast de sucesso/erro
+- Tratamento basico de erros e mensagens amigaveis
 
-- Para iniciar crie um fork deste repositório para seu perfil.
-- Para entregar crie uma solicitação pull request.
+## Observacao sobre IDs
 
-O teste consiste no desenvolvimento de uma aplicação fullstack simples, composta por um frontend em React (SPA), dois backends independentes e um banco de dados MySQL compartilhado.
+Os IDs sao gerados automaticamente pelo banco (AUTO_INCREMENT). Assim, o backend ignora o campo `id` enviado no body e utiliza o valor gerado pelo MySQL.
 
-O backend em PHP será responsável pelo cadastro e listagem de médicos, enquanto o backend em Node.js será responsável pelo cadastro e listagem de pacientes. Cada backend deve expor endpoints REST para criação e consulta de seus respectivos dados, garantindo que as respostas estejam em formato JSON consistente.
+## Estrutura do projeto
 
-O primeiro backend deverá ser desenvolvido em PHP e contemplar as seguintes rotas:
-- `GET /api/v1/medicos`: obtém todos os médicos retornando conforme exemplo abaixo: 
+- app/: frontend React
+- backendjs/: API Node.js (pacientes)
+- backendphp/: API PHP (medicos)
+- DB/: scripts do banco utilizado para testar.
 
-```json
-    [
-        {
-            "id": 1,
-            "nome": "João da Silva",
-            "CRM": "123456",
-            "UFCRM": "CE"
-        },
-        {
-            "id": 2,
-            "nome": "Francisco Pereira",
-            "CRM": "876543",
-            "UFCRM": "CE"
-        }
-    ]
-```
+## Banco de dados
 
-- `POST /api/v1/medicos`: cria um novo médico enviado o o body do exemplo abaixo e retornando a mensagem "Médico criado com sucesso".
+A pasta DB contem o schema utilizado no projeto:
 
-```json
-    {
-        "id": 1,
-        "nome": "João da Silva",
-        "CRM": "123456",
-        "UFCRM": "CE"
-    }
-```
+- DB/schema.sql
 
-O segundo backend deverá ser desenvolvido em NodeJS (JavaScript) e contemplar as seguintes rotas:
-- `GET /api/v1/pacientes`: obtém todos os pacientes retornando conforme exemplo abaixo: 
+Use este arquivo para criar as tabelas no MySQL antes de rodar as APIs.
 
-```json
-    [
-        {
-            "id": 1,
-            "nome": "João da Silva",
-            "dataNascimento": "2026-01-01",
-            "carteirinha": "123456",
-            "cpf": "12345678909"
-        },
-        {
-            "id": 2,
-            "nome": "Francisco Pereira",
-            "carteirinha": "876543",
-            "carteirinha": "12345678901"
-        }
-    ]
-```
+## Endpoints principais
 
-- `POST /api/v1/medicos`: cria um novo médico enviado o o body do exemplo abaixo e retornando a mensagem "Médico criado com sucesso".
+### PHP (medicos)
 
-```json
-    {
-        "id": 1,
-        "nome": "João da Silva",
-        "dataNascimento": "2026-01-01",
-        "carteirinha": "123456",
-        "cpf": "12345678909"
-    },
-```
+- GET /api/v1/medicos
+- POST /api/v1/medicos
+- PUT /api/v1/medicos/{id}
+- DELETE /api/v1/medicos/{id}
 
-O frontend deve consumir ambas as APIs, permitindo visualizar listas de médicos e pacientes separadamente, além de possibilitar o cadastro de novos registros. O candidato deverá organizar o projeto em três partes (frontend, backend Node e backend PHP), garantir a integração entre as camadas e manter o código legível e funcional.
+### Node.js (pacientes)
 
-A tela deve mostrar um menu sidebar à esquerda com duas opções (Médicos e Pacientes), que quando clicado abre a tela de listagem e criação dos registros.
+- GET /api/v1/pacientes
+- POST /api/v1/pacientes
+- PUT /api/v1/pacientes/{id}
+- DELETE /api/v1/pacientes/{id}
 
-A avaliação considerará principalmente o funcionamento ponta a ponta da aplicação, a correta integração entre os serviços, a organização do código e, como diferencial, boas práticas, tratamento de erros e clareza na documentação. O tempo estimado para conclusão é de 6 a 10 horas.
+## Como executar (resumo)
 
+1. Configure o MySQL usando DB/schema.sql.
+2. Suba o backend PHP (composer start).
+3. Suba o backend Node (npm start).
+4. Suba o frontend (npm run dev).
 
-# Desafio extra 
-
-Crie as demais operações CRUD
-Deixe o projeto pronto para multi linguagem.
+Os enderecos base das aplicações devem ser configurados no frontend e backends via .env.
